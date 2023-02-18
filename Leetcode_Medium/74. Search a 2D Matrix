@@ -1,0 +1,103 @@
+// RADHA SWAMI JI
+
+// Solution 1 - TC->O(log(m*n)
+
+class Solution {
+public:
+bool binary_search(int row,vector<int> m,int target)        // FInd perticular element by this fuction 
+{
+    int start=0;
+    int end=m.size()-1;
+   
+    while(start<=end)                             // Binnary search
+    { 
+         int mid=(start+end)/2;
+         if(m[mid]==target)
+         {
+             return true;
+         }
+         else if(m[mid]>target)
+         {
+              end=mid-1;
+         }
+         else if(m[mid]<target)
+         {
+             start=mid+1;
+         }
+    }
+    return false;
+    
+}
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        int m=matrix.size()-1;
+        int n=matrix[0].size()-1;
+        int start=0;
+        int end=m;
+        while(start<=end)             // Find row in which element is there      (binary search
+        {
+            int mid=(start+end)/2;
+            if(matrix[mid][0]<=target && matrix[mid][n]>=target)
+            {
+                 return binary_search(mid, matrix[mid],target);         // Find element in that perticular row
+            }
+            else if(matrix[mid][0]>target)
+            {
+                end=mid-1;
+            }
+            else if(matrix[mid][0]<target)
+            {
+                start=mid+1;
+            }
+        }
+        return false;
+    }
+};
+
+
+
+//-------------------------------------------------------------------------------------------------
+//solution 2- TC-> O(NLogN)
+
+class Solution {
+public:
+bool binary_search(int row,vector<vector<int>> m,int target)
+{
+    int start=0;
+    int end=m[row].size()-1;
+   
+    while(start<=end)
+    {
+         int mid=(start+end)/2;
+         if(m[row][mid]==target)
+         {
+             return true;
+         }
+         else if(m[row][mid]>target)
+         {
+              end=mid-1;
+         }
+         else if(m[row][mid]<target)
+         {
+            
+             start=mid+1;
+         }
+    }
+    return false;
+    
+}
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        int m=matrix.size()-1;
+        int n=matrix[0].size()-1;
+        for(int i=0;i<=m;i++)
+        {
+            if(matrix[i][0]<=target && matrix[i][n]>=target)
+            {
+                return binary_search(i, matrix,target);
+                break;
+            }
+        }
+        return false;
+    }
+};
