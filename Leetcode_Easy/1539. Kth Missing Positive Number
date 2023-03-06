@@ -1,0 +1,76 @@
+// time complexity O(N)
+// Space complexity O(1)
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        
+        int marker=1;
+        int i=0;
+        int count=0;
+        int ans=0;
+        while(i<arr.size())
+        {
+            if(marker==arr[i])
+            {
+                i++;
+            }
+            else
+            {
+                count++;
+                ans=marker;
+                if(count==k)
+                {
+                    return ans;
+                }
+            }
+            marker++;
+        }
+        while(count<k)
+        {
+           ans=marker++;
+           count++;
+        }
+        return ans;
+    }
+};
+
+
+
+// =============================================================================================
+
+Time complexity O(N)
+space Complexity O(K)
+
+
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        
+       vector<int> v;
+        int marker=1;
+        int i=0;
+        while(i<arr.size())
+        {
+            if(marker==arr[i])
+            {
+                i++;
+            }
+            else
+            {
+                v.push_back(marker);
+                if(v.size()==k)
+                {
+                    return v[k-1];
+                }
+                
+            }
+            marker++;
+        }
+        while(count<k)
+        {
+           v.push_back(marker++);
+        }
+        return v[k-1];
+    }
+};
