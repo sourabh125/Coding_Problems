@@ -1,0 +1,59 @@
+
+
+// time complexity O(Nlog(k))
+// space complexity O(1)
+// =======================================================================
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        
+        int sum=0;
+        int start=1;
+        int end=1e9;
+        // for(int i=0;i<piles.size();i++)
+        // {
+        //     // sum+=piles[i];
+        //     start=min(start,piles[i]);
+        //     end=max(end,piles[i]);
+        // }
+        if(piles.size()==1 )
+        {
+            int temp=piles[0]/h;
+            if(piles[0]%h>0)
+            {
+                return temp+1;
+            }
+            return temp;
+        }        
+        long long int ans=0;
+        long long int mid=0;
+        while(start<=end)
+        {
+            mid=start+(end-start)/2;
+            int remainder=0;
+            ans=0;
+            for(int i=0;i<piles.size();i++)
+            {
+                int divide=piles[i]/mid;
+                remainder=piles[i]%mid;
+                if(remainder==0)
+                {
+                    ans+=divide;
+                }
+                else
+                {
+                    ans+=divide+1;
+                }
+            }
+            if(ans > h)
+            {
+                start=mid+1;
+            }
+            else
+            {
+                end=mid-1;
+            }
+        }
+        return start;
+    }
+};
