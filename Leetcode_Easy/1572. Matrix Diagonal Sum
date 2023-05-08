@@ -1,0 +1,51 @@
+
+// Time complexity O(N)
+// Space complexity O(1)
+
+// ****************************************************************************
+
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        
+        int n=mat.size();
+        int j=0;
+        int k=n-1;
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum+=mat[i][j];
+            j++;
+            sum+=mat[i][k];
+            k--;
+        }
+        if(n%2==1)
+        {
+            sum-=mat[n/2][n/2];
+        }
+        return sum;
+    }
+};
+
+
+//************************************************************************
+
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        
+        int n=mat.size();
+        int i=0,j=0,k=0;
+        int sum=0;
+        while(i<n)
+        {
+            sum+=(mat[i][i] + mat[i][n-i-1]);
+            i++;
+        }
+        if(n%2==1)
+        {
+            sum-=mat[n/2][n/2];
+        }
+        return sum;
+    }
+};
