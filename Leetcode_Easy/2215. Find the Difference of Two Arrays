@@ -1,0 +1,62 @@
+
+
+// brute force approach
+
+class Solution {
+public:
+    vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        
+        vector<vector<int>> ans;
+        int n=nums1.size();
+        int m=nums2.size();
+
+        vector<int> temp1;
+        vector<int> temp2;
+        for(int i=0;i<n;i++)
+        {            
+            bool val=true;
+            for(int j=0;j<m;j++)
+            {
+                if(nums1[i]==nums2[j])
+                {
+                    val=false;
+                    break;
+                }
+            }
+            if(val==true)
+            {
+                temp1.push_back(nums1[i]);   
+            }
+        }
+        for(int j=0;j<m;j++)
+        {
+            bool val=true;
+            for(int i=0;i<n;i++)
+            {
+                if(nums2[j]==nums1[i])
+                { 
+                    val=false;
+                    break;
+                }
+            }
+            if(val==true)
+            {
+                 temp2.push_back(nums2[j]);
+            }
+        }
+    // remove duplicate 
+     sort(temp1.begin(),temp1.end());
+     sort(temp2.begin(),temp2.end());
+     temp1.erase(unique(temp1.begin(),temp1.end()),temp1.end());
+     temp2.erase(unique(temp2.begin(),temp2.end()),temp2.end());
+
+     ans.push_back(temp1);
+     ans.push_back(temp2);
+        return ans;
+    }
+};
+
+
+//  optimized approach
+
+
