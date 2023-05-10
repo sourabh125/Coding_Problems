@@ -1,0 +1,46 @@
+
+// Time complexity O(N*N) 
+// Space complexity O(N*N)
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        
+        vector<vector<int>> ans;
+        int count=1;
+        for(int i=0;i<n;i++)
+        {
+            vector<int> temp;
+            for(int j=0;j<n;j++)
+            {
+                temp.push_back(1);
+            }
+            ans.push_back(temp);
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            // left to right
+            for(int j=i;j<n-i;j++)
+            {
+                ans[i][j]=count++;
+            }
+            // top to bottom 
+            for(int j=i+1;j<n-i;j++)
+            {
+                ans[j][n-i-1]=count++;
+            }
+            // right to left
+            for(int j=n-i-2;j>=i;j--)
+            {
+                ans[n-i-1][j]=count++;
+            }
+            // bottom to top
+            for(int j=n-i-2;j>i;j--)
+            {
+                ans[j][i]=count++;
+            }
+        }
+        return ans;
+    }
+};
