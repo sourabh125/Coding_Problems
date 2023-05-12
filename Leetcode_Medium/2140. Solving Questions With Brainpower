@@ -1,0 +1,38 @@
+
+
+
+
+// using Dynamic Programing 
+
+class Solution {
+public:
+    long long mostPoints(vector<vector<int>>& questions) {
+        
+        int n=questions.size();
+        vector<long long int> dp(n,-1);
+        long long int maxi=-555555;
+        for(int i=n-1;i>=0;i--)
+        {
+            int j=i;
+            long long int sum=0;
+            while(j<n)
+            {
+                if(dp[j]!=-1)
+                {
+                    sum+=dp[j];
+                    break;
+                }
+                else
+                {
+                    sum+=questions[j][0];
+                    j=j+questions[j][1]+1;
+                }
+            }
+            cout<<sum<<" ";
+            maxi=max(maxi,sum);
+            dp[i]=maxi;
+        }
+        return dp[0];
+
+    }
+};
