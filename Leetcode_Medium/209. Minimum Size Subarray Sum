@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        
+        int n=nums.size();
+        int sum=0;
+        int sp=0,ep=0;
+        int mini=INT_MAX;
+        for(int i=0;i<n;i++)
+        {
+            sum+=nums[i];
+            if(sum>=target)
+            {
+                mini=min(mini,i+1);
+                break;
+            }
+            ep++;
+        }
+        ep++;
+        if(sum<target) return 0;
+
+        // Checking wheather ep crossed the n value if yes then this Immediate below code 
+        if(ep>=n){
+            ep-=1;
+            while(sp<ep && sum-nums[sp]>=target)
+            {
+                sum-=nums[sp];
+                mini=min(mini,ep-sp);
+                sp++;
+            }
+            return mini;
+        }
+        
+        // Follows the contenstion window or Sliding window and solve
+        while(ep<n)
+        {
+            sum+=nums[ep];
+            while(sp<=ep && sum-nums[sp]>=target)
+            {
+                sum-=nums[sp];
+                mini=min(mini,ep-sp);
+                sp++;
+            }
+            ep++;
+        }
+
+
+        return mini;
+    }
+};
