@@ -1,0 +1,28 @@
+
+
+
+// Time Complexity O(N)
+// Space Complexity O(1)
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        
+        int i=0;
+        int n=nums.size();
+        int count=0;
+        while(i<n-count)
+        {
+            if(nums[i]==0)
+            {
+                count++;
+                nums.push_back(0);
+                nums.erase(nums.begin()+i);
+            }else
+            {
+                i++;
+            }
+            
+        }
+    }
+};
