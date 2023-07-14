@@ -1,0 +1,62 @@
+
+
+
+// Solution 1: 
+// Time complexity O(N^2) (Getting TLE)
+
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+        
+        int n=arr.size();
+        vector<int> ans(n,1);
+        int maxi=INT_MIN;
+        int sp=0;
+        for(int i=0;i<n;i++)
+        {
+            int count=1;
+            sp=i;
+            for(int j=i;j<n;j++)
+            {
+                int diff=arr[j]-arr[sp];
+                if(diff==difference)
+                {
+                    count++;
+                    sp=j;
+                }
+            }
+            maxi=max(maxi,count);
+        }
+        if(difference==0)
+        {
+            return maxi-1;
+        }
+        return maxi;
+    }
+};
+
+
+// -----------------------------------------------------------------------------------------------
+
+// Solution 2:  (usng Map)
+
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+        
+        map<int,int> mp;
+        int maxi=INT_MIN;
+        int n=arr.size();
+        mp[arr[0]]++;
+        for(int i=1;i<n;i++)
+        {
+            int temp=arr[i]-difference;
+            mp[arr[i]]=mp[temp]+1;
+        }
+        for(auto a:mp)
+        {
+            maxi=max(maxi,a.second);
+        }
+        return maxi;
+    }
+};
