@@ -1,0 +1,62 @@
+
+
+
+// Solution-1: Getting TLE
+
+class Solution {
+public:
+    bool checkAllEqual(vector<int> nums)
+    {
+        int n=nums.size();
+        for(int i=1;i<n;i++)
+        {
+            if(nums[i]==nums[i-1])
+            {
+                continue;
+            }
+            return false;
+        }
+        return true;
+    }
+    int minMoves(vector<int>& nums) {
+        int n=nums.size();
+        int ans=0;
+        int i=n;
+        int maxi=INT_MIN;
+        while(!checkAllEqual(nums))
+        {
+            sort(nums.begin(),nums.end());
+            int big=nums[n-1];
+            int diff=big-nums[0];
+            ans+=(big-nums[0]);
+            for(int i=0;i<n-1;i++)
+            {
+                nums[i]+=diff;
+            }
+        }
+        
+        return ans;
+    }
+};
+
+// ------------------------------------------------Solution:2-----------------------------
+
+
+
+class Solution {
+public:
+    
+    int minMoves(vector<int>& nums) {
+        int mini=INT_MAX;
+        int ans=0;
+        for(int n:nums)
+        {
+            mini=min(mini,n);
+        }
+        for(int n:nums)
+        {
+            ans+=(n-mini);
+        }
+        return ans;
+    }
+};
