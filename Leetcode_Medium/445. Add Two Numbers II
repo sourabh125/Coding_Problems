@@ -1,0 +1,85 @@
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        
+        ListNode* tl1=l1;
+        ListNode* tl2=l2;
+        vector<int> v1;
+        vector<int> v2;
+        vector<int> ans;
+        while(tl1!=NULL)
+        {
+            v1.push_back(tl1->val);
+            tl1=tl1->next;
+        }
+        while(tl2!=NULL)
+        {
+            v2.push_back(tl2->val);
+            tl2=tl2->next;
+        }
+
+        int i=v1.size()-1;
+        int j=v2.size()-1;
+        int carry=0;
+        while(i>=0 && j>=0)
+        {
+            int sum=v1[i]+v2[j]+carry;
+            int remainder=sum%10;
+            ans.push_back(remainder);
+            carry=sum/10;
+            i--;j--;
+            
+        }
+        while(i>=0)
+        {
+            int sum=v1[i]+carry;
+            ans.push_back(sum%10);
+            carry=sum/10;
+            i--;
+        }
+        while(j>=0)
+        {
+            int sum=v2[j]+carry;
+            ans.push_back(sum%10);
+            carry=sum/10;
+            j--;
+        }
+        while(carry)
+        {
+            ans.push_back(carry%10);
+            carry/=10;
+        }
+        reverse(ans.begin(),ans.end());
+        ListNode* ansList=NULL;
+        ListNode* temp=ansList;
+        int n=ans.size();
+        for(int i=0;i<n;i++)
+        {
+            ListNode* n=new ListNode(ans[i]);
+            if(ansList==NULL)
+            {
+                ansList=n;
+                temp=ansList;
+            }else
+            {
+                temp->next=n;
+                temp=temp->next;
+            }
+        }
+        return ansList;
+    }
+};
