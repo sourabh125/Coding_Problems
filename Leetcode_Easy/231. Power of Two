@@ -1,0 +1,45 @@
+
+
+
+// Solution:1 
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        
+        int power=0;
+        while(power<=n)
+        {
+            if(pow(2,power)==n)
+            {
+                return true;
+            }
+            else if(pow(2,power)<n)
+            {
+                power=power+1;
+                continue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+};
+
+// Solution:2 
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        
+        int power=0;
+        if(n==0) return false;
+        while(n%2==0)
+        {
+            n/=2;
+        }
+        return n==1;
+    }
+};
