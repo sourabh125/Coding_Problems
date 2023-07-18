@@ -1,0 +1,25 @@
+
+
+
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        if(x<0) return false;
+        long long int sum=0;
+        long long int temp=x;
+        while(x)
+        {
+            sum=sum*10+x%10;
+            x/=10;
+        }
+        if(2*temp == 2*sum) return true;
+
+        return false;
+    }
+};
+
+
+// We can do this by (vector), (A stack + A Queue), and one above methode
+
