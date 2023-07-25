@@ -1,0 +1,61 @@
+
+
+
+
+// Solution 1: 
+// Time complexity O(N) & Space Complexity O(1)
+
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        
+        int maxi=arr[0];
+        int n=arr.size();
+        int ans=0;
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]>maxi)
+            {
+                ans=i;
+                maxi=arr[i];
+            }
+        }
+        return ans;
+    }
+};
+
+// -----------------------------------------------------**************************-----------------------------------------------
+
+
+// Solution 2: 
+// Time complexity O(log(N)) & Space complexity O(1)
+
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        
+        
+        int start=0;
+        int end=arr.size()-1;
+        int mid=(start+end)/2;
+        while(start<end)
+        {
+            int mid=(start+end)/2;
+            if(arr[mid-1]<arr[mid] && arr[mid]>arr[mid+1])
+            {
+                return mid;
+            }
+            else if(arr[mid-1]<arr[mid] && arr[mid]<arr[mid+1])
+            {
+                start=mid;
+            }
+            else //if(arr[mid-1]>arr[mid] && arr[mid]>arr[mid+1])
+            {
+                end=mid;
+            }
+        }
+        if(start==end)
+            return start;
+        return 1;
+    }
+};
