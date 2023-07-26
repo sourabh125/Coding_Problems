@@ -1,6 +1,7 @@
 
 
 
+// solution 1: 
 
 class Solution {
 public:
@@ -46,6 +47,52 @@ public:
             else{
                 i=mid+1;
             }
+                
+        }
+        return minSpeed;
+    }
+};
+
+// --------------------------**************************************------------------------------
+
+
+// solution 2 : 
+class Solution {
+public:
+    
+    int minSpeedOnTime(vector<int>& dist, double hour) {
+
+      // Using binary search 
+      int i=0;
+      int j=1e7;
+      int minSpeed=-1;
+
+        while(i<=j)
+        {
+            int mid=(i+j)/2;
+            double ans=0;
+            for(int k=0;k<dist.size();k++)
+            {
+                double d=(double)(dist[k]*1.0/mid);
+                if(k!=dist.size()-1)
+                {
+                    ans+=ceil(d);
+                }
+                else
+                {
+                    ans+=d;
+                }
+                if(ans>hour)
+                {
+                    i=mid+1;
+                    break;
+                }
+            }
+            if(ans<=hour)
+            {
+                minSpeed=mid;
+                j=mid-1;
+            } 
                 
         }
         return minSpeed;
