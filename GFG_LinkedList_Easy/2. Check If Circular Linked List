@@ -1,0 +1,36 @@
+
+// solution 1: For all type of circularity at any point
+
+bool isCircular(Node *head)
+{
+   // Your code here
+   Node* slow=head;
+   Node* fast=head;
+   while(fast!=NULL && fast->next!=NULL)
+   {
+       slow=slow->next;
+       fast=fast->next->next;
+       if(slow==fast)
+       {
+           return true;
+       }
+   }
+   return false;
+}
+
+// Solution 2:  (for only first node circularity)
+
+bool isCircular(Node *head)
+{
+   // Your code here
+   Node* slow=head;
+   Node* fast=head;
+   while(fast!=NULL)
+   {
+       fast=fast->next;
+       if(fast==slow)
+        return true;
+    
+   }
+   return false;
+}
