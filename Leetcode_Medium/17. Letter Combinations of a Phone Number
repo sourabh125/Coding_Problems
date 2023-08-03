@@ -1,0 +1,83 @@
+
+// ------------------------------------------------********* Solve only: sourabh_solve() again :) *********----------------------------
+
+
+class Solution {
+public:
+    void sourabh_solve(vector<string> &ans, vector<string> &s,int i,int j,string str)
+    {
+        if(i==s.size() || j==s[i].size())
+        {
+            ans.push_back(str);
+            
+            return;
+        }
+        str+=s[i][j];
+        sourabh_solve(ans,s,i+1,j,str);
+        str.erase(str.begin()+str.size()-1);
+        sourabh_solve(ans,s,i,j+1,str);
+    }
+    void solve_ref(vector<string> &ans,vector<string> &s,int i,string str)
+    {
+        if(i==s.size())
+        {
+            ans.push_back(str);
+            return;
+        }
+       
+        for(int k=0;k<s[i].size();k++)
+        {
+            str+=s[i][k];
+            solve_ref(ans,s,i+1,str);
+            str.erase(str.begin()+str.size()-1);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        
+        vector<string> ans;
+        vector<string> s;
+        if(digits.size()==0)return ans;
+
+        int n=digits.size();
+        
+        for(int i=0;i<n;i++)        // Forming a string s.
+        {
+            if(digits[i]=='2')
+            {
+                s.push_back("abc");
+            }
+            else if(digits[i]=='3')
+            {
+                s.push_back("def");
+            }
+            else if(digits[i]=='4')
+            {
+                s.push_back("ghi");
+            }
+            else if(digits[i]=='5')
+            {
+                s.push_back("jkl");
+            }
+            else if(digits[i]=='6')
+            {
+                s.push_back("mno");
+            }
+            else if(digits[i]=='7')
+            {
+                s.push_back("pqrs");
+            }
+            else if(digits[i]=='8')
+            {
+                s.push_back("tuv");
+            }
+            else if(digits[i]=='9')
+            {
+                s.push_back("wxyz");
+            }
+        }
+
+        // sourabh_solve(ans,s,0,0,"");
+        solve_ref(ans,s,0,"");
+        return ans;
+    }
+};
