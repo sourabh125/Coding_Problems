@@ -1,0 +1,43 @@
+
+
+// --------------------------------------*********** Solution :1 (Getting TLE) **********----------------------------------------
+
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        
+        int ns=s.size();
+        if(s=="a" && wordDict[0]=="a") return true;
+        for(int i=0;i<wordDict.size();i++)
+        {
+            int k=0;
+            int meet=-1;
+            bool track=false;
+            for(int j=0;j<s.size();j++)
+            {
+                if(k==wordDict[i].size() || (k==wordDict[i].size()-1 && wordDict[i][k]==s[j]))
+                {
+                    s.erase(s.begin()+meet,s.begin()+j+1);
+                    cout<<s<<",";
+                    track=true;
+                    break;
+                }
+                else if(wordDict[i][k]==s[j])
+                {
+                    if(meet==-1) meet=j;
+                    k++;
+                }
+                else if(k!=wordDict[i].size() || wordDict[i][k]!=s[j])
+                {
+                    j=meet+1;
+                    meet=-1;
+                    k=0;
+                }
+            }
+            if(!track) return false;
+        }
+        return true;
+    }
+};
+
+// ----------------------------------------*********** Solution 2: (Optimization Aproach) **************--------------------------------
