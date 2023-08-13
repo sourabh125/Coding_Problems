@@ -1,0 +1,40 @@
+
+
+
+
+class Solution {
+public:
+    int maxSum(vector<int>& nums) {
+        
+        int n=nums.size();
+        int maxans=INT_MIN;
+        
+        for(int i=0;i<n;i++)
+        {
+            int tempi=nums[i];
+            int maxi=INT_MIN;
+            while(tempi!=0)
+            {
+                maxi=max(maxi,tempi%10);
+                tempi/=10;
+            }
+            for(int j=0;j<n;j++)
+            {
+                int tempj=nums[j];
+                if(i==j) continue;
+                int maxj=INT_MIN;
+                while(tempj!=0)
+                {
+                    maxj=max(maxj,tempj%10);
+                    tempj/=10;
+                }
+                if(maxi==maxj) 
+                {
+                    maxans=max(maxans,(nums[i]+nums[j]));
+                }
+            }
+        }
+        if(maxans==INT_MIN) return -1;
+        return maxans; 
+    }
+};
