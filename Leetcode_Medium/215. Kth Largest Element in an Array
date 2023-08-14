@@ -1,0 +1,32 @@
+
+
+
+
+class Solution {
+public:
+    int by_sorting(vector<int>& nums, int k)
+    {
+        sort(nums.begin(),nums.end());
+        return nums[nums.size()-k];
+    }
+
+    int by_heap(vector<int>& nums,int k)
+    {
+        priority_queue<int> maxh;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            maxh.push(nums[i]);
+        }
+        while(--k)
+        {
+            maxh.pop();
+        }
+        return maxh.top();
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        
+        // return by_sorting(nums,k);
+        return by_heap(nums,k);
+    }
+};
