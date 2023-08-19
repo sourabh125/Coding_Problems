@@ -1,0 +1,82 @@
+
+
+//-------------------------------------------------*****(Solution:1)*****------------------------------------------------
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        vector<int> v;
+        ListNode* temp=head;
+        ListNode* temp1=head;
+        while(temp!=NULL)
+        {
+            v.push_back(temp->val);
+            temp=temp->next;
+        }
+        int i=0;
+        int end=v.size()-1;
+        while(temp1!=NULL && temp1->next!=NULL)
+        {
+            temp1->val=v[i];
+            temp1=temp1->next;
+            i++;
+            temp1->val=v[end];
+            temp1=temp1->next;
+            end--;
+        }
+        if(v.size()%2!=0)
+        {
+            temp1->val=v[i];
+        }
+    }
+};
+
+
+//-------------------------------------------------*****(Solution:2(Iterative)(stack & queue))*****------------------------------------------------
+
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        
+        stack<ListNode*> s;
+        queue<ListNode*> q;
+        ListNode* l1=head;
+        
+        while(l1!=NULL)
+        {
+            s.push(l1);
+            q.push(l1);
+            l1=l1->next;
+        }
+        int start=0;
+        int end=s.size()-1;
+        ListNode* fans=NULL;
+        ListNode* ans=fans;
+        while(start<=end)
+        {
+            if(ans==NULL)
+            {
+                ans=q.front();
+                ans->next=NULL;
+                fans=ans;
+            }
+            else{
+                ans->next=q.front();
+                ans=ans->next;
+                ans->next=NULL;
+            }
+            q.pop();
+            ans->next=s.top();
+            ans=ans->next;
+            ans->next=NULL;
+            s.pop();
+            start++;
+            end--;
+        }
+        head=fans;
+    }
+};
+
+
+//-------------------------------------------------*****(Solution:2*Recursive))*****------------------------------------------------
+
