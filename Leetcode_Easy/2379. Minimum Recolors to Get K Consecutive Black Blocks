@@ -1,75 +1,52 @@
-// Time complexity O(N)
-
 class Solution {
 public:
-    int minimumRecolors(string blocks, int k) {
-        
-        int minicount=INT_MAX;
+    int solve_in_nn(string blocks,int k)                   // Solution in Time Complexity O(N*N)
+    {
+        int mini=INT_MAX;
+        int n=blocks.size();
+        for(int i=0;i<=n-k;i++)
+        {
+            int count=0;
+            for(int j=i;j<k+i;j++)
+            {
+                if(blocks[j]=='W') count++;
+            }
+            mini=min(mini,count);
+        }
+        return mini;
+    }
+    
+    int solve_in_n(string blocks,int k)            // Solution in Time Complexity O(N) by using contention window
+    {
+        int start=0;
+        int mini=INT_MAX;
         int count=0;
-        for(int i=0;i<blocks.size();i++)
+        int n=blocks.size();
+        for(int i=0;i<n;i++)
         {
             if(i<k)
             {
-                if(blocks[i]=='W')
-                {
-                    count++;
-                }   
+                if(blocks[i]=='W') count++;  
+                
             }
             else 
             {
-                 if(i==k)
-                {
-                    minicount=count;
-                }
-                if(blocks[i]=='B' && blocks[i-k]=='W')
-                {
-                    count--;
-                }
-                else if(blocks[i]=='W' && blocks[i-k]=='B')
-                {
-                    count++;
-                }
-                if(count<minicount)
-                {
-                    minicount=count;
-                }
+                //If both, start and end the same value then no changes 
+                // W-B combination then count--;
+                 mini=min(mini,count);
+                if(blocks[start]=='W' && blocks[i]=='B') { count--; mini=min(mini,count);}
+                // B-W combination then count++;
+                else if(blocks[start]=='B' && blocks[i]=='W') {count++; mini=min(mini,count);  }
+                start++;
             }
-        }
-        if(count<minicount)
-        {
-            return count;
-        }
-        return minicount;
+        } 
+        mini=min(mini,count);
+        return mini;
     }
-};
-
-
-
-//---------------------------------------------------------------------------------
-
-
-// Time complexity O(N*K)
-
-class Solution {
-public:
     int minimumRecolors(string blocks, int k) {
         
-        int mini=INT_MAX;
-        for(int i=0;i<=blocks.size()-k;i++)
-        {
-            int count=0;
-            for(int j=i;j<i+k;j++)
-            {
-                if(blocks[j]=='W')
-                {
-                    count++;
-                }
-            }
-            if(mini>count)
-            {
-                mini=count;
-            }
-        }
-        return mini;
+        // return solve_in_nn(blocks,k);
+        
+        return solve_in_n(blocks,k);
     }
 };
