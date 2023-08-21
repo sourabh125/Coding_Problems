@@ -1,0 +1,50 @@
+
+
+
+
+class Solution {
+public:
+    bool solve1(string s)
+    {
+        string temp="";
+        for(int i=0;i<s.size();i++)
+        {
+            temp+=s[i];
+            string temps=temp;
+            while(temps.size()<=s.size())
+            {
+                if(temps==s && temp!=s) return true;
+                else temps+=temp;
+            }
+            if(temps==s && temp!=s) return true;
+        }
+        return false;
+    }
+
+    bool solve2(string s)
+    {
+        int n=s.size();
+        for(int i=n/2;i>=1;i--)
+        {
+            if(n%i==0)
+            {
+                string subStr=s.substr(0,i);
+                string temps=subStr;
+                while(temps.size()<=s.size())
+                {
+                    if(temps==s) return true;
+                    else temps+=subStr;
+                }
+                if(temps==s) return true;
+            }
+        }
+        return false;
+    }
+    bool repeatedSubstringPattern(string s) {
+        
+        return solve1(s);        // slow
+
+        return solve2(s);        // fast
+
+    }
+};
