@@ -1,0 +1,32 @@
+
+
+
+
+ class Solution {
+public:
+    void reverse(string &str)
+    {
+        for(int i=0;i<str.size()/2;i++)
+        {
+            swap(str[i],str[str.size()-i-1]);
+        }
+    }
+    string convertToTitle(int colno) {
+        
+        string str="";
+        while(colno!=0)
+        {
+            int div=colno/26;
+            int mod=colno%26;
+            if(mod==0){
+                if(colno==26) colno=0;
+                str+='Z';
+                div=div-1;
+            }
+            else str+='A'+mod-1;
+            colno=div;
+        }
+        reverse(str);
+        return str;
+    }
+};
