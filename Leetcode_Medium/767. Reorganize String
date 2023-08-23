@@ -1,0 +1,97 @@
+
+
+//-----------------------------------*****(Solution-1(TLE))*****-------------------------------
+
+class Solution {
+public:
+     vector<string> ans;
+    void permut(string temp,int n,int j)
+    {
+            if(j==n-1)
+            {
+                ans.push_back(temp);
+                return;                
+            }
+            for(int i=j;i<n;i++)
+            {
+                swap(temp[i],temp[j]);
+                permut(temp,n,j+1);
+                swap(temp[i],temp[j]);
+            }
+            
+    } 
+string reorganizeString(string s) {
+        
+        // string ans="";
+        int n=s.size();
+        permut(s,n,0);
+        int ansn=ans.size();
+        for(int i=0;i<ans.size();i++)
+        {
+            bool flag=true;
+            for(int j=1;j<ans[i].size();j++)
+            {
+                if(ans[i][j]==ans[i][j-1]) 
+                {
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag) return ans[i];
+        }
+        return "";
+    }
+};
+
+
+//-----------------------------------*****(Solution-2)*****-------------------------------
+
+
+
+class Solution {
+public:
+    
+    string reorganizeString(string s) {
+        
+        vector<char> carr(s.size(),' ');
+        int n=s.size();
+        map<char,int> mp; 
+        priority_queue<pair<int,char>> maxh;
+        for(int i=0;i<n;i++)
+        {
+            mp[s[i]]++;
+        }
+        for(auto i:mp)
+        {
+            maxh.push({i.second,i.first});
+        }
+        
+        string ans="";
+        while(maxh.size()>=2)
+        {
+            auto maxh1=maxh.top();
+            maxh.pop();
+            auto maxh2=maxh.top();
+            maxh.pop();
+
+            ans+=maxh1.second;
+            ans+=maxh2.second;
+            maxh1.first-=1;
+            maxh2.first-=1;
+            if(maxh1.first>0)
+                maxh.push({maxh1.first,maxh1.second});
+            if(maxh2.first>0)
+                maxh.push({maxh2.first,maxh2.second});
+        } 
+        if(!maxh.empty())
+        {
+            auto maxh1=maxh.top();
+            if(maxh1.first>1)
+            {
+                return ans="";
+            }
+            ans+=maxh1.second;
+        }       
+        return ans;
+    }
+};
