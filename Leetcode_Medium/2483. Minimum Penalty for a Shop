@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int solve_in_nn(string customers)
+    {
+         int n=customers.size();
+        int minPanalty=INT_MAX;
+        int ansHour=-1;
+        int count=0;
+        
+        for(int i=0;i<=n;i++)
+        {
+            int currHour=i;
+            int panalty=0;
+            for(int j=0;j<n;j++)
+            {
+                if((currHour>0 && customers[j]=='Y') || (currHour<=0 && customers[j]=='N'))
+                {
+                    currHour--;
+                }
+                else if(currHour<=0 && customers[j]=='Y' || (currHour>=0 && customers[j]=='N'))
+                {
+                    panalty++;
+                    currHour--;
+                }
+            }
+
+            if(panalty<minPanalty)
+            {
+                ansHour=i;
+                minPanalty=panalty;
+            }
+        }
+        return ansHour;
+    }
+
+    int solve_in_n(string customers)
+    {
+        int maxscore=0,score=0;
+        int minIndex=-1;
+        int n=customers.size();
+        for(int i=0;i<n;i++)
+        {
+            score+= (customers[i]=='Y')?1:-1;
+            if(score>maxscore)
+            {
+                minIndex=i;
+                maxscore=score;
+            }
+        }
+        return minIndex+1;
+    }
+    int bestClosingTime(string customers) {
+        
+        // return solve_in_nn(customers);            // Time complexity (N*N)
+        return solve_in_n(customers);                // Time complexity (N)
+    }
+};
