@@ -1,0 +1,47 @@
+
+
+
+
+class Solution {
+public:
+    int solve_in_NN(vector<int>& height)
+    {
+        int maxStore=INT_MIN;
+        int n=height.size();
+        for(int i=0;i<n;i++)
+        {
+            for(int j=n-1;j>=i;j--)
+            {
+                int mini=min(height[i],height[j]);
+                maxStore=max(maxStore,mini*(abs(i-j)));
+            }
+        }
+        return maxStore;
+    }
+    int solve_in_N(vector<int>& height)
+    {
+        int start=0;
+        int end=height.size()-1;
+        int maxStorage=INT_MIN;
+        while(start<end)
+        {
+            int mini=min(height[start],height[end]);
+            maxStorage=max(maxStorage,mini*(abs(start-end)));
+            if(height[start]<=height[end])
+            {
+                start++;
+            }
+            else
+            {
+                end--;
+            }
+        }
+        return maxStorage;
+    }
+    int maxArea(vector<int>& height) {
+        
+        // return solve_in_NN(height);
+        
+        return solve_in_N(height);
+    }
+};
