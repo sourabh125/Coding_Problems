@@ -1,0 +1,47 @@
+
+
+
+
+class Solution {
+public:
+    void solve_in_nlogn(int n,vector<int>& ans)
+    {
+        for(int i=0;i<n+1;i++)
+        {
+            int temp=i;
+            int count=0;
+            while(temp!=0)
+            {
+                if(temp%2==1)
+                {
+                    count++;
+                }
+                temp/=2;
+            }
+            ans.push_back(count);
+        }
+    }
+    void solve_in_N(int n,vector<int>& ans)
+    {
+        ans.push_back(0);
+        for(int i=1;i<n+1;i++)
+        {
+            if(i%2==0)
+            {
+                ans.push_back(ans[i/2]);
+            }
+            else
+            {
+                ans.push_back(ans[i/2]+1);
+            }
+        }
+    }
+    vector<int> countBits(int n) {
+        
+        vector<int> ans;
+        // solve_in_nlogn(n,ans);
+
+        solve_in_N(n,ans); 
+        return ans;
+    }
+};
