@@ -1,0 +1,56 @@
+
+
+
+
+class Solution {
+public:
+    void solve1_in_NN(vector<vector<int>>& tempMat, vector<vector<int>>& matrix)   // brute force approach
+    {
+        int row=matrix.size();
+        int col=matrix[0].size();
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    for(int k=0;k<col;k++) tempMat[i][k]=0;
+                    for(int k=0;k<row;k++) tempMat[k][j]=0;
+                }
+            }
+        }
+        matrix=tempMat;
+    }
+    void solve2_in_NN(vector<vector<int>>& matrix)
+    {
+        vector<pair<int,int>> v;
+        int row=matrix.size();
+        int col=matrix[0].size();
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    v.push_back({i,j});
+                }
+            }
+        }
+        for(int i=0;i<v.size();i++)
+        {
+            for(int j=0;j<row;j++) matrix[j][v[i].second]=0;
+            for(int j=0;j<col;j++) matrix[v[i].first][j]=0;
+        }
+    }
+    void setZeroes(vector<vector<int>>& matrix) {
+        
+        // TC : (N*M), SC : O(N*M)
+        //vector<vector<int>> tempMat=matrix;
+        //solve1_in_NN(tempMat,matrix);
+
+
+         // TC : (N*M), SC : O(N+M)
+        solve2_in_NN(matrix);              
+
+    }
+};
