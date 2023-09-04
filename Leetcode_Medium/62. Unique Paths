@@ -1,0 +1,39 @@
+
+
+
+class Solution {
+public:
+    void solve1(int row,int col, vector<vector<int>>& ans)
+    {
+        for(int i=1;i<row;i++)
+        {
+            for(int j=1;j<col;j++)
+            {
+                ans[i][j]=(ans[i][j-1] + ans[i-1][j]);
+            }
+        }
+    }
+    int count=0;
+    void solve2_recursion(int i,int j,int row,int col)
+    {
+        
+        if(i==row-1 && j==col-1)
+        {
+            count++; return;
+        }
+        if(i>=row || j>=col) return;
+        solve2_recursion(i,j+1,row,col);
+        solve2_recursion(i+1,j,row,col);
+        
+    }
+    int uniquePaths(int row, int col) {
+        
+        vector<vector<int>> ans(row,vector<int>(col,1));
+            // solve1(row,col,ans);
+            // return ans[row-1][col-1];
+
+        solve2_recursion(0,0,row,col);
+        return count;
+    }
+
+};
