@@ -1,0 +1,63 @@
+
+
+
+
+//-----------------------------------(Solution-1 (iterative))----------------------------
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+        
+        if(head==NULL ) return head;
+        ListNode* prev=head;
+        ListNode* curr=head->next;
+        while(curr!=NULL) {
+            if(curr->val==val) {
+                curr=curr->next;
+            }
+            else {
+                prev->next=curr;
+                prev=prev->next;
+                curr=curr->next;
+            }
+        }
+        prev->next=curr;
+
+        if(head->val==val) return head->next;
+        return head;
+    }
+};
+
+
+
+//----------------------------------(Solution-2 (recursive))----------------------------
+
+class Solution {
+public:
+    void solve_recursive(ListNode* tempHead,int val,ListNode* prev)
+    {
+        if(tempHead==NULL)
+        {
+            prev->next=tempHead;
+            return;
+        }
+        if(tempHead->val==val)
+        {
+            solve_recursive(tempHead->next,val,prev);
+        }
+        else
+        {
+            prev->next=tempHead;
+            prev=prev->next;
+            solve_recursive(tempHead->next,val,prev);
+        }
+    }
+    ListNode* removeElements(ListNode* head, int val) {
+        
+        if(head==NULL) return head;
+
+        solve_recursive(head->next,val,head);
+        if(head->val==val) return head->next;
+        return head;
+    }
+};
