@@ -1,0 +1,35 @@
+
+//--------------------------------------(Solution-1)---------------------------------------
+class Solution {
+public:
+    int count=0;
+    void solve_recursion(char i,map<char,int>& mp)
+    {
+        for(auto j:mp)
+        {
+            if(j.first!=i && mp[i]==j.second && mp[i]!=0)
+            {
+                mp[i]--;
+                count++;
+                solve_recursion(i,mp);
+            }
+        }
+    }
+    int minDeletions(string s) {
+        map<char,int> mp;
+        int n=s.size();
+        for(int i=0;i<n;i++)
+        {
+            mp[s[i]]++;
+        }
+        for(auto i:mp)
+        {
+            solve_recursion(i.first,mp);
+        }
+        return count;
+    }
+};
+
+
+//--------------------------------------(Solution-2)----------------------------------
+
