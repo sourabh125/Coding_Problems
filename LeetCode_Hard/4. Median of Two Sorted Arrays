@@ -1,0 +1,96 @@
+
+
+
+
+
+class Solution {
+public:
+
+    double solve1(vector<int>& nums1,vector<int>& nums2)
+    {
+        int n1=nums1.size();
+        int n2=nums2.size();
+        
+        for(int i=0;i<n2;i++)
+        {
+            nums1.push_back(nums2[i]);
+        }
+        sort(nums1.begin(),nums1.end());
+        if(nums1.size()%2==0)
+        {
+            return (double)(nums1[nums1.size()/2]+nums1[(nums1.size()/2)-1])/2;
+        }
+        return (double)nums1[nums1.size()/2];
+    }
+
+    double solve2(vector<int>& nums1,vector<int>& nums2){
+        vector<int> ans;
+        int n1=nums1.size();
+        int n2=nums2.size();
+        int i=0,j=0;
+        while(i<n1 && j<n2){
+            if(nums1[i]<nums2[j]){
+                ans.push_back(nums1[i]);
+                i++;
+            }
+            else{
+                ans.push_back(nums2[j]);
+                j++;
+            }
+        }
+        while(i<n1){
+            ans.push_back(nums1[i]);
+            i++;
+        }
+        while(j<n2){
+            ans.push_back(nums2[j]);
+            j++;
+        }
+
+        if(ans.size()%2==0){
+            return (double)(ans[ans.size()/2]+ans[(ans.size()/2)-1])/2;
+        }
+        return (double)ans[ans.size()/2];
+    }
+
+
+    double solve3(vector<int>& nums1,vector<int>& nums2)             // not working for a little test cases
+    {
+        int n1=nums1.size();
+        int n2=nums2.size();
+        int sum=0;
+        if(n1<n2)
+        {   
+            for(int i=0;i<n1;i++)
+            {
+                sum+=(nums1[i]+nums2[i]);
+            }
+            for(int i=n1;i<n2;i++)
+            {
+                sum+=(nums2[i]);
+            }
+        }
+        else
+        {
+            for(int i=0;i<n2;i++)
+            {
+                sum+=(nums1[i]+nums2[i]);
+            }
+            for(int i=n2;i<n1;i++)
+            {
+                sum+=nums1[i];
+            }
+        }
+        return (double)sum/(n1+n2);
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        
+        // any how merge two array , sort them (nlogn) me and the find median 
+        // return solve1(nums1,nums2);
+
+        // sort by using 2 pointer and find median 
+        return solve2(nums1,nums2);
+
+        // return solve3(nums1,nums2);
+    }
+};
