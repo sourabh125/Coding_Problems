@@ -1,0 +1,35 @@
+
+
+
+
+class Solution {
+public:
+
+    vector<int> solve_by_minHeap(vector<vector<int>>& mat,int k)
+    {
+        int row=mat.size();
+        int col=mat[0].size();
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minh;
+        for(int i=0;i<row;i++)
+        {
+            int sum=0;
+            for(int j=0;j<col;j++)
+            {
+                sum+=mat[i][j];
+            }
+            minh.push({sum,i});
+        }
+
+        vector<int> ans;
+        while(k--)
+        {
+            ans.push_back(minh.top().second);
+            minh.pop();
+        }
+        return ans;
+    }
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        
+       return solve_by_minHeap(mat,k);
+    }
+};
