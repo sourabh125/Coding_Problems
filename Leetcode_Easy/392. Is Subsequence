@@ -1,0 +1,43 @@
+
+
+
+class Solution {
+public:
+
+    bool solve_in_n(string s,string t)
+    {
+        int sn=s.size();
+        int tn=t.size();
+        if(sn>tn) return false;
+        int i=0;
+       
+        for(int k=0;k<tn;k++)
+        {
+            if(s[i]==t[k])
+            {
+                i++;
+            }
+        }
+        if(i>=sn) return true;
+        return false;
+    }
+
+    bool solve_by_recursion(string s,string t,int i,int j,int sn,int tn)
+    {
+        if(sn>tn || (j>=tn && i<sn)) return false;
+        if(i>=sn) return true;
+        if(s[i]==t[j]){
+            return solve_by_recursion(s,t,i+1,j+1,sn,tn);
+        }
+         return solve_by_recursion(s,t,i,j+1,sn,tn);
+        
+    }
+    bool isSubsequence(string s, string t) {
+        
+        // return solve_in_n(s,t);
+
+        int sn=s.size();
+        int tn=t.size();
+        return solve_by_recursion(s,t,0,0,sn,tn);
+    }
+};
