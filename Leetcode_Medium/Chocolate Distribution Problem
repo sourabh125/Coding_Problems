@@ -1,0 +1,31 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int minDiff(vector<int>& arr,int m)
+{
+    int size=arr.size();
+    sort(arr.begin(),arr.end());
+    
+    int start=0;
+    int mini=INT_MAX;
+    for(int i=0;i<size;i++)
+    {
+        if(m>1) m--;
+        else
+        {
+            mini=min(mini,(arr[i]-arr[start]));
+            start++;
+        }
+    }
+    return mini;
+}
+int main() {
+    // Write C++ code here
+    cout << "RADHA SWAMI JI 125"<<endl;
+    vector<int> v={12, 4, 7, 9, 2, 23, 25, 41, 30, 40, 28, 42, 30, 44, 48, 43, 50};
+    int m=7;
+    cout<<"ans: "<<minDiff(v,m);
+    return 0;
+}
