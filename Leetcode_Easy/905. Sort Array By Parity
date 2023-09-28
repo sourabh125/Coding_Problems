@@ -1,0 +1,50 @@
+
+
+class Solution {
+public:
+ // ------------------------------BRUTE FORCE---------------------------
+    vector<int> solve1(vector<int>& nums)
+    {
+        vector<int> ans;
+        int size=nums.size();
+        for(int i=0;i<size;i++)
+        {
+            if(nums[i]%2==0)
+            {
+                ans.push_back(nums[i]);
+                nums[i]=-1;
+            }
+        }
+        for(int i=0;i<size;i++)
+        {
+            if(nums[i]%2!=0 && nums[i]>0)
+            {
+                ans.push_back(nums[i]);
+            }
+        }
+        return ans;
+    }
+
+//-------------------------------(2-POINTER)-----------------------------
+    void solve2(vector<int>& nums)
+    {
+        int start=0,end=0;
+        int size=nums.size();
+        for(int i=0;i<size;i++)
+        {
+            if(nums[i]%2==0)
+            {
+                swap(nums[i],nums[start]);
+                start++;
+            }
+        }
+        
+    }
+
+    vector<int> sortArrayByParity(vector<int>& nums) {
+        
+        // return solve1(nums);
+        solve2(nums);
+        return nums;
+    }
+};
