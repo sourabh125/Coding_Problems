@@ -1,0 +1,85 @@
+
+
+
+
+class Solution {
+public:
+    bool solve1(string colors)
+    {
+        int n=colors.size();
+        if(n<=2) return false;
+        bool alice=true;
+        bool bob=false;
+        bool ans=false;
+        for(int j=0;j<n-1;j++)
+        {
+            if(alice)
+            {
+                
+                for(int i=1;i<colors.size();i++)
+                {
+                    if(colors[i]=='A' && colors[i-1]=='A' && colors[i+1]=='A')
+                    {
+                        alice=false;
+                        bob=true;
+                        ans=true;
+                        colors.erase(colors.begin()+i);
+                        
+                        break;
+                    }
+                }
+                if(alice)
+                {
+                    ans=false;
+                    break;
+                }
+            }
+            else if(bob)
+            {
+                bool ans=false;
+                for(int i=1;i<colors.size();i++)
+                {
+                    if(colors[i]=='B' && colors[i-1]=='B' && colors[i+1]=='B')
+                    {
+                        alice=true;
+                        bob=false;
+                        ans=true;
+                        colors.erase(colors.begin()+i);
+                        
+                        break;
+                    }
+                }
+                if(alice==false) {
+                    ans=true;
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+
+    bool solve2(string colors)
+    {
+        int n=colors.size();
+        int countA=0,countB=0;
+
+        for(int i=1;i<n-1;i++)
+        {
+            if(colors[i]=='A' && colors[i-1]=='A' && colors[i+1]=='A')
+            {
+                countA++;
+            }
+            else if(colors[i]=='B' && colors[i-1]=='B' && colors[i+1]=='B')
+            {
+                countB++;
+            }
+        }
+        return countA>countB;
+    }
+    bool winnerOfGame(string colors) {
+        
+        // return solve1(colors);
+        
+        return solve2(colors);
+    }
+};
