@@ -1,0 +1,51 @@
+
+//---------------------------------------------(Solution : 1)------------------------------------
+
+class MyHashMap {
+public:
+    MyHashMap() {
+        map<int,int> mp;
+    }
+    map<int,int> mp;
+    void put(int key, int value) {
+        mp[key]=value;
+    }
+    
+    int get(int key) {
+       for(auto i:mp)
+       {
+           if(i.first==key) return mp[key];
+       }
+       return -1;
+    }
+    
+    void remove(int key) {
+        for(auto a:mp){
+            if(a.first==key) {
+                mp.erase(key);
+                break;
+            }
+        }
+    }
+};
+
+//---------------------------------------------(Solution : 2)------------------------------------
+
+class MyHashMap {
+public:
+    int data[1000001];
+    MyHashMap() {
+        fill(data,data+1000000,-1);
+    }
+    void put(int key, int value) {
+        data[key]=value;
+    }
+    
+    int get(int key) {
+       return data[key];
+    }
+    
+    void remove(int key) {
+        data[key]=-1;
+    }
+};
