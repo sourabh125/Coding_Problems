@@ -1,0 +1,60 @@
+/*  There are two solution 
+    one is using map in which we map all the element and count the frequency of each element and if frequency is greather than (N/3) thenn that element is added to the answer vector
+    Second Solution - Using sorting algorithm is which we first sort the array and by using 2 pointer we count the frequency fo the element and push into the vector
+*/
+
+
+
+class Solution {
+public:
+    vector<int> solve_using_map(vector<int>& nums)
+    {
+        vector<int> ans;
+        map<int,int> mp;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            mp[nums[i]]++;
+        }
+        for(auto i:mp)
+        {
+            if(i.second>(n/3)) ans.push_back(i.first);
+        }
+
+        return ans;
+    }
+    vector<int> solve_using_sort(vector<int>& nums)
+    {
+        sort(nums.begin(),nums.end());
+        vector<int> ans;
+        int n=nums.size();
+        int start=0;
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[start]==nums[i]) {
+                count++;
+            }
+            else if(count>(n/3))
+            {
+                ans.push_back(nums[start]);
+                start=i;
+                count=1;
+            }
+            else{
+                start=i;
+                count=1;
+            }
+        }
+        if(count>(n/3)) ans.push_back(nums[start]);
+
+        return ans;
+    }
+    vector<int> majorityElement(vector<int>& nums) {
+        
+       
+        // return solve_using_map(nums);
+
+        return solve_using_sort(nums);
+    }
+};
