@@ -1,0 +1,48 @@
+
+
+
+
+class Solution {
+public:
+    int maxi=INT_MIN;
+    void solve_recursion(int sum,int n,int multi,int count)
+    {
+        if(sum==n && count>=2){
+            maxi=max(multi,maxi);
+            return;
+        }
+        if(sum>n) return;
+
+        for(int i=1;i<=n;i++)
+        {
+            solve_recursion(sum+i,n,multi*i,count+1);
+        }
+    }
+
+    int solve_in_constant(int n)
+    {
+        if(n<=3) return n-1;
+
+        int result=1;
+        while(n>4){
+            result*=3;
+            n-=3;
+        }
+        return result*=n;
+    }
+    
+ 
+int integerBreak(int n) {   
+
+//------------------------------(solution : 1 (Recursion))-------------------
+
+        if(n==0 || n==1) return n;
+        int sum=0;
+        solve_recursion(sum,n,1,0);
+        return maxi;
+
+//------------------------------(solution : 2 (MATHS))-------------------
+
+        return solve_in_constant(n);
+    }
+};
