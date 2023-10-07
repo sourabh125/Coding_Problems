@@ -1,0 +1,43 @@
+
+
+
+
+class Solution {
+public:
+    
+    int dp[51][51][101];
+    int mod=1e9+7;
+    int M,N,K;
+    int solve_recursion(int v_value,int count,int countk)
+    {
+        if(count==N){
+            if(countk==K){
+                return 1;
+            }
+            return 0;
+        }
+        int maxAns=0;
+        if(dp[count][countk][v_value]!=-1) return dp[count][countk][v_value];
+        
+        for(int i=1;i<=M;i++)
+        {
+            if(v_value<i){
+                maxAns= (maxAns + solve_recursion(i,count+1,countk+1)) % mod;
+            }
+            else maxAns= (maxAns + solve_recursion(v_value,count+1,countk)) % mod;
+            
+        }
+        return dp[count][countk][v_value] = maxAns % mod;
+    }
+    int numOfArrays(int n, int m, int k) {
+        
+        if(k>m) return 0;
+        
+        memset(dp,-1,sizeof(dp));
+        N=n;
+        M=m;
+        K=k;
+        return solve_recursion(0,0,0);
+        
+    }
+};
