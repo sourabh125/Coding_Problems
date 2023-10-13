@@ -1,0 +1,85 @@
+
+
+
+
+//---------------------------------------(Solution : 1 (Brute-force (recurion))------------------------------------------
+class Solution {
+public:
+    int mini=INT_MAX;
+    int solve_recursion(vector<int>& cost,int index,int sum,int n){
+        if(index>=n){
+            mini=min(mini,sum);
+            return 0;
+        }
+        solve_recursion(cost,index+1,sum+cost[index],n);
+        solve_recursion(cost,index+2,sum+cost[index],n);
+        return mini;
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        
+        int n=cost.size();
+        if(n==0) return 0;
+        if(n==1){
+            return cost[0];
+        }
+        int ans=min(solve_recursion(cost,0,0,n),solve_recursion(cost,1,0,n));
+        if(mini==INT_MIN) return 0;
+        return ans;
+    }
+};
+
+
+//--------------------------------------(Solution : 2 TC(N),SC(N))---------------------------------------
+
+class Solution {
+public:
+    int solve2(vector<int>& cost,vector<int> ans,int n){
+        for(int i=n-1;i>=0;i--){
+            if(i==n-1 || i==n-2){
+                ans[i]=cost[i];
+            }
+            else{
+                ans[i]=cost[i]+min(ans[i+1],ans[i+2]);
+            }
+        }
+        return min(ans[0],ans[1]);
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        if(n==0) return 0;
+        if(n==1){
+            return cost[0];
+        }
+        vector<int> ans(n,1);
+        return solve2(cost,ans,n);
+    }
+};
+
+
+
+//--------------------------------------(solution :3 TC(N), SC(1))----------------------------
+
+
+class Solution {
+public:
+    int solve2(vector<int>& cost,int n){
+        for(int i=n-1;i>=0;i--){
+            if(i==n-1 || i==n-2){
+                // ans[i]=cost[i];
+                continue;
+            }
+            else{
+                cost[i]=cost[i]+min(cost[i+1],cost[i+2]);
+            }
+        }
+        return min(cost[0],cost[1]);
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n=cost.size();
+        if(n==0) return 0;
+        if(n==1){
+            return cost[0];
+        }
+        return solve2(cost,n);
+    }
+};
