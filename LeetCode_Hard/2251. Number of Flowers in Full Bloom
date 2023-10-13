@@ -1,0 +1,125 @@
+
+
+
+
+//---------------------------------------(Solution - 1 (brute Force) Memory Limit exceeded)------------------------ 
+
+class Solution {
+public:
+    vector<int> solve_iteration(vector<vector<int>>& flowers,vector<int>& people)
+    {
+        int maxiSize=INT_MIN;;
+        int fsize=flowers.size();
+        for(int i=0;i<fsize;i++){
+            maxiSize=max(flowers[i][1],maxiSize);
+        }
+        for(int i=0;i<people.size();i++){
+            maxiSize=max(people[i],maxiSize);
+        }
+        vector<vector<int>> ans(fsize,vector<int>(maxiSize,-1));
+        
+        for(int i=0;i<fsize;i++){
+            for(int j=0;j<maxiSize;j++){
+                if(j>=flowers[i][0]-1 && j<flowers[i][1]){
+                    if(i==0){
+                        ans[i][j]=1;
+                    }
+                    else if(ans[i-1][j]!=-1){
+                        ans[i][j]=ans[i-1][j]+1;
+                    }
+                    else if(ans[i-1][j]==-1){
+                        ans[i][j]=1;
+                    }
+                    // else ans[i][j]=ans[i-1][j];
+                }
+                else if(i>0) ans[i][j]=ans[i-1][j];
+            }
+        }
+
+        vector<int> fans;
+        int psize=people.size();
+        for(int i=0;i<psize;i++)
+        {
+            int temp=ans[ans.size()-1][people[i]-1];
+            if(temp==-1){
+                fans.push_back(0);
+            }
+            else fans.push_back(temp);
+        }
+        for(int i=0;i<fsize;i++){
+            for(int j=0;j<maxiSize;j++){
+                cout<<ans[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+        return fans;
+    }
+    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+        return solve_iteration(flowers,people);
+        
+    }
+};
+
+//---------------------------(Solution-2 optimized but(again - Memory Limit exceeded)--------------------------
+
+
+class Solution {
+public:
+    vector<int> solve_iteration(vector<vector<int>>& flowers,vector<int>& people)
+    {
+        int fsize=flowers.size();
+        int maxSize=INT_MIN;
+        vector<int> ans;
+        // find max size can we have by the second position of the flowers
+        for(int i=0;i<fsize;i++)
+        {
+            maxSize=max(maxSize,flowers[i][1]);
+        }
+        int s=flowers[0][0]-1;
+        int e=flowers[0][1];
+        for(int i=0;i<fsize;i++)
+        {
+            int start=flowers[i][0];
+            int end=flowers[i][1];
+            vector<int> temp1(maxSize,0);
+            flowers[i]=temp1;
+            if(i==0){
+                for(int j=0;j<maxSize;j++){
+                    if(j>=start-1 && j<end)
+                        flowers[i][j]=1;
+                }
+            }
+            else {
+                for(int j=0;j<maxSize;j++){
+                    if(j>=start-1 && j<end)
+                        flowers[i][j]=flowers[i-1][j]+1;
+                    else flowers[i][j]=flowers[i-1][j];
+                }
+            }  
+        }
+        
+        // for the first row of the flowers
+        for(int i=s;i<e;i++){
+            flowers[0][i]=1;
+        }
+
+        // print 2d array
+        for(int i=0;i<fsize;i++){
+            for(int j=0;j<maxSize;j++){
+                cout<<flowers[i][j]<<" ";
+            }
+            cout<<endl;
+        }
+
+        int ps=people.size();
+        for(int i=0;i<ps;i++){
+            if(people[i]>maxSize) ans.push_back(0);
+            else ans.push_back(flowers[fsize-1][people[i]-1]);
+        }
+        return ans;
+    }
+    vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& people) {
+        
+        return solve_iteration(flowers,people);
+    }
+};
