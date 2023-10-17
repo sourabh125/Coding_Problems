@@ -1,0 +1,24 @@
+
+
+
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int stockP=prices[0];
+        int index=0;
+        
+        int n=prices.size();
+        int sell=0;
+        for(int i=1;i<n;i++){
+            if(stockP < prices[i]){
+                sell+=(prices[i]-stockP);
+                index=i;
+                stockP=prices[i];
+            }
+            else stockP=prices[i];
+        }
+        return sell;
+    }
+};
