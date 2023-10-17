@@ -1,0 +1,61 @@
+
+
+
+
+class Solution {
+public:
+    vector<int> solve_using_map(vector<int>& nums){
+        map<int,int> mp;
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            mp[nums[i]]++;
+        }
+        for(auto i:mp){
+            if(i.second>1) ans.push_back(i.first);
+        }
+        return ans;
+    }
+
+    vector<int> solve_using_sorting(vector<int>& nums){
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+        vector<int> ans;
+        int count=1;
+        for(int i=1;i<n;i++){
+            if(nums[i]==nums[i-1]) count++;
+            else {
+                if(count>1) {
+                    ans.push_back(nums[i-1]);
+                    count=1;
+                }
+            }
+        }
+        if(count>1) ans.push_back(nums[n-1]);
+        return ans;
+    }
+    
+    vector<int> solve_bruteForce(vector<int>& nums)
+    {
+        int n=nums.size();
+        vector<int> ans;
+        for(int i=0;i<n;i++){
+            
+            for(int j=i+1;j<n;j++){
+                if(nums[i]!=nums[j]) continue;
+                else {
+                    ans.push_back(nums[i]);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+    vector<int> findDuplicates(vector<int>& nums) {
+        
+        return solve_using_map(nums);
+        
+        return solve_using_sorting(nums);
+
+        // return solve_bruteForce(nums);      // using double for loop
+    }
+};
