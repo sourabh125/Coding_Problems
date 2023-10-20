@@ -1,0 +1,109 @@
+
+
+
+
+class Solution {
+public:
+    vector<vector<int>> solve_bruteforce(vector<int>&nums,int target){
+
+        int n=nums.size();
+        vector<vector<int>> ans;
+        set<vector<int>> st;
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                for(int k=j+1;k<n-1;k++){
+                    for(int l=k+1;l<n;l++){
+                        long long int sum=(long long int)nums[i]+nums[j]+nums[k]+nums[l];
+                        if(sum==target){
+                            vector<int> temp;
+                            temp.push_back(nums[i]);
+                            temp.push_back(nums[j]);
+                            temp.push_back(nums[k]);
+                            temp.push_back(nums[l]);
+                            sort(temp.begin(),temp.end());
+                            st.insert(temp);
+                        }
+                    }
+                }
+            }
+        }
+        for(auto i:st){
+            ans.push_back(i);
+        }
+        return ans;
+    }
+
+    vector<vector<int>> solve_optimized(vector<int>& nums,int target)
+    {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        set<vector<int>> st;
+        vector<vector<int>> ans;
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                int start=j+1;
+                int end=n-1;
+                while(start<end){
+                    long long int sum=(long long int)nums[i]+nums[j]+nums[start]+nums[end];
+                    if(sum==target){
+                        vector<int> temp;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[start]);
+                        temp.push_back(nums[end]);
+                        sort(temp.begin(),temp.end());
+                        st.insert(temp);
+                        start++;
+                        end--;
+                    }
+                    else if(sum>target){
+                        end-=1;
+                    }
+                    else start+=1;
+                }
+            }
+        }
+        for(auto i:st){
+            ans.push_back(i);
+        }
+        return ans;
+    }
+
+    vector<vector<int>> solve_more_optimized(vector<int>& nums,int target){
+
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> ans;
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                long long int newTarget=(long long int)target - (long long int)nums[i]-(long long int)nums[j];
+                int start=j+1,end=n-1;
+                while(start<end){
+                    if(nums[start]+nums[end] < newTarget){
+                        start++;
+                    }
+                    else if(nums[start]+nums[end] > newTarget){
+                        end--;
+                    }
+                    else{
+                        ans.push_back({nums[i],nums[j],nums[start],nums[end]});
+                        int tempStart=start,tempEnd=end;
+                        while(start<end && nums[start]==nums[tempStart]) start++;
+                        while(start<end && nums[end]==nums[tempEnd]) end--;
+                    }
+                }
+                while(j+1 < n && nums[j]==nums[j+1]) j++;
+            }
+            while(i+1 < n && nums[i]==nums[i+1]) i++;
+        }
+        return ans;
+    }
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        
+        // return solve_bruteforce(nums,target);
+
+        // return solve_optimized(nums,target);
+
+        return solve_more_optimized(nums,target);
+    }
+};
