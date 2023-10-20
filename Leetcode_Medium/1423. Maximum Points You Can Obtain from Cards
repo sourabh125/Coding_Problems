@@ -1,0 +1,22 @@
+
+
+
+class Solution {
+public:
+    int maxi=INT_MIN;
+    void solve_recursion(vector<int>& cardPoints,int k,int start,int end,int sum,int count){
+
+        if(count==k){
+            maxi=max(maxi,sum);
+            return;
+        }
+        solve_recursion(cardPoints,k,start+1,end,sum+cardPoints[start],count+1);
+        solve_recursion(cardPoints,k,start,end-1,sum+cardPoints[end],count+1); 
+    }
+    int maxScore(vector<int>& cardPoints, int k) {
+        int n=cardPoints.size()-1;
+        solve_recursion(cardPoints,k,0,n,0,0);
+        if(maxi==INT_MIN) return 0;
+        return maxi;
+    }
+};
