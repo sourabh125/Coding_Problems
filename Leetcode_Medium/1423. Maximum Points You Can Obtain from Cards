@@ -1,11 +1,7 @@
-
-
-
 class Solution {
 public:
     int maxi=INT_MIN;
     void solve_recursion(vector<int>& cardPoints,int k,int start,int end,int sum,int count){
-
         if(count==k){
             maxi=max(maxi,sum);
             return;
@@ -13,9 +9,28 @@ public:
         solve_recursion(cardPoints,k,start+1,end,sum+cardPoints[start],count+1);
         solve_recursion(cardPoints,k,start,end-1,sum+cardPoints[end],count+1); 
     }
+
+    void solve_optimized(vector<int>&cardPoints,int k,int start, int end,int sum,int count){
+        for(int i=0;i<k;i++){
+            sum+=cardPoints[i];
+            start++;
+        }start--;
+        maxi=max(maxi,sum);
+        int stop=end-k;
+        for(int i=end;i>stop;i--){
+            sum-=cardPoints[start--];
+            sum+=cardPoints[end--];
+            maxi=max(maxi,sum);
+        }
+    }
+
     int maxScore(vector<int>& cardPoints, int k) {
         int n=cardPoints.size()-1;
-        solve_recursion(cardPoints,k,0,n,0,0);
+       
+        // solve_recursion(cardPoints,k,0,n,0,0);             // recursive solution
+
+        solve_optimized(cardPoints,k,0,n,0,0);                  // sliding window problem
+        
         if(maxi==INT_MIN) return 0;
         return maxi;
     }
