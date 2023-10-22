@@ -1,0 +1,58 @@
+
+
+
+
+class Solution {
+public:
+    int solve_using_map(vector<int>& nums){
+        int n=nums.size();
+        map<int,int> mp;
+        for(int i=0;i<n;i++){
+            mp[nums[i]]++;
+        }
+        for(auto i:mp){
+            if(i.second>n/2){
+                return i.first;
+            }
+        }
+        return 0;
+    }
+
+    int solve_using_sorting(vector<int>& nums){
+        int n=nums.size();
+        int count=1;
+        sort(nums.begin(),nums.end());
+        int start=nums[0];
+        for(int i=1;i<n;i++){
+            if(nums[i]==start){
+                count++;
+            }
+            else{
+                if(count>n/2) return start;
+                start=nums[i];
+                count=1;
+            }
+        }
+        if(count>n/2) return start;
+        return 0;
+    }
+
+    int solve_optimized(vector<int>& nums){
+        int n=nums.size();
+        int count=0;
+        int ele=nums[0];
+        for(int i=0;i<n;i++){
+            if(count==0) ele=nums[i];
+            else count+=(ele==nums[i])?1:-1;
+        }
+        return ele;
+    }
+    int majorityElement(vector<int>& nums) {
+        
+        // return solve_using_map(nums);
+        
+        // return solve_using_sorting(nums);
+        
+        return solve_optimized(nums);
+    }
+};
