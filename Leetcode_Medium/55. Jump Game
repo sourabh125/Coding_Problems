@@ -1,0 +1,43 @@
+
+
+
+class Solution {
+public:
+    bool solve_recursion(vector<int>& nums,int jump,int n){
+        if(jump>=n-1) return true;
+        for(int i=1;i<=nums[jump];i++){
+            cout<<jump<<" ";
+            solve_recursion(nums,jump+i,n);
+        }
+        return false;
+    }
+
+    bool solve_greedy(vector<int>& nums)
+    {
+        int n=nums.size();
+        vector<int> temp(n,0);
+        temp[n-1]=1;
+        for(int i=n-2;i>=0;i--)
+        {
+            int back=nums[i];
+            while(back){
+                if(i+back<n){
+                    if(temp[i+back]==1){
+                        temp[i]=1;
+                        break;
+                    }
+                    else if(back==1) temp[i]=0;
+                }
+                back--;
+            }
+            cout<<temp[i]<<" ";
+        }
+        return temp[0]==1?true:false;
+    }
+    bool canJump(vector<int>& nums) {
+        int n=nums.size();
+        return solve_recursion(nums,0,n)
+       
+        return solve_greedy(nums);
+    }
+};
