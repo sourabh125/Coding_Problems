@@ -1,0 +1,50 @@
+class Solution {
+public:
+    bool solve_left(string s,int start,int end){
+
+        int count=0;
+        while(start<=end){
+            if(s[start]==s[end]){
+                start++;
+                end--;
+            }
+            else if(count==0){
+                    start++;
+                    count++;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+    bool solve_right(string s,int start,int end){
+
+        int count=0;
+        while(start<=end){
+            if(s[start]==s[end]){
+                start++;
+                end--;
+            }
+            else if(count==0){
+                    end--;
+                    count++;
+            }
+            else{
+                return false;
+            }
+        }
+        return true;
+    }
+    bool validPalindrome(string s) {
+        
+        int n=s.size();
+        int start=0;
+        int end=n-1;
+        // left delete 
+        // right delete 
+        if(solve_left(s,start,end) || solve_right(s,start,end)) return true;
+        return false;
+
+    }
+};
