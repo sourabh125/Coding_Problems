@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int solve_using_map(vector<int>& arr){
+        map<int,int> mp;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            mp[arr[i]]++;
+        }
+        for(auto i:mp){
+            if((i.second)>n/4){
+                return i.first;
+            }
+        }
+        return -1;
+    }
+
+    int solve_using_2pointer(vector<int>& arr){
+        
+        int i=0;
+        int j=arr.size();
+        int count=0;
+        int n= arr.size();
+        for(int j=0;j<n;j++){
+            if(arr[i]==arr[j]) count++;
+            else {
+                if(count>n/4) return arr[i];
+                i=j;
+                count=1;
+            }
+        }
+        if(count>n/4) return arr[i];
+        return -1;
+    }
+    int findSpecialInteger(vector<int>& arr) {
+        
+        // return solve_using_map(arr);
+
+        return solve_using_2pointer(arr);
+    }
+};
