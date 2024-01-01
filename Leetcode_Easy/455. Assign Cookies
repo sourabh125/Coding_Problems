@@ -1,0 +1,26 @@
+
+
+class Solution {
+public:
+    int findContentChildren(vector<int>& g, vector<int>& s) {
+        
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int sp=s.size()-1;
+        int gp=g.size()-1;
+        int count=0;
+        // for(int i=s.size()-1;i>=0;i--)
+        {
+            while(sp>=0 && gp>=0){
+                if(s[sp]>=g[gp]){
+                    count++;
+                    sp--;gp--;
+                }
+                else {
+                    gp--;
+                }
+            }
+        }
+        return count;
+    }
+};
