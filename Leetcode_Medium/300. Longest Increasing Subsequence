@@ -1,0 +1,26 @@
+
+//-------------------------------------------(Solution-1(Brute force)--------------------------------------
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        
+        int n=nums.size();
+        int maxAns=INT_MIN;
+        vector<int> ans(n,1);
+        for(int i=n-1;i>=0;i--){
+            int maxVal=0;
+            for(int j=i;j<n;j++){
+                if(nums[i]<nums[j]){
+                    maxVal=max(ans[j],maxVal);
+                }
+            }
+            ans[i]=maxVal+1;
+            maxAns=max(ans[i],maxAns);
+        }
+        return maxAns;
+    }
+};
+
+
+//-------------------------------------------(Solution-2(Optimized approach)--------------------------------------
