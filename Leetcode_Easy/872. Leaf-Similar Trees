@@ -40,12 +40,34 @@ public:
     }
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
         
-
         solve_root(root1,v1);
         solve_root(root2,v2);
         if(compare_values(v1,v2)){
             return true;
         }
         return false;
+    }
+};
+
+
+//-----------------------------------------------(solution 2)-----------------------------------
+
+class Solution {
+public:
+    vector<int> v1,v2;
+    void solve_root(TreeNode* root,vector<int>& v){
+        if(root==NULL ) return;
+        if(root->left==NULL && root->right==NULL){
+            v.push_back(root->val);
+            return;
+        }
+        solve_root(root->left,v);
+        solve_root(root->right,v);
+    }
+    bool leafSimilar(TreeNode* root1, TreeNode* root2) {
+        
+        solve_root(root1,v1);
+        solve_root(root2,v2);
+        return v1==v2;
     }
 };
