@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+//-----------------------------------------------------(Brute Force Approach)--------------------------------------------
+
+class Solution {
+public:
+    int maxAns=INT_MIN;
+    void solve(TreeNode* root,int val){
+        if(root==NULL) return;
+        if(abs(root->val - val)>maxAns) maxAns=abs(root->val - val);
+        solve(root->left,val);
+        solve(root->right,val);
+    }
+    int maxAncestorDiff(TreeNode* root) {
+        
+        if(root==NULL) return maxAns;
+        solve(root,root->val);
+        maxAncestorDiff(root->left);
+        maxAncestorDiff(root->right);
+
+        return maxAns;
+    }
+};
+
+
+//---------------------------------------------(solution using DFS)------------------------------------------------
+
+
+
