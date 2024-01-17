@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+
+    bool solve_BF(vector<int>&arr){
+        map<int,int> mp;
+        int n=arr.size();
+        for(int i=0;i<n;i++){
+            mp[arr[i]]++;
+        }
+
+        for(auto i:mp){
+            for(auto j:mp){
+                if(i!=j){
+                    if(i.second==j.second) return false;
+                }
+            }
+        }
+        return true;
+    }
+    bool uniqueOccurrences(vector<int>& arr) {
+       
+       return solve_BF(arr);
+        
+    }
+};
