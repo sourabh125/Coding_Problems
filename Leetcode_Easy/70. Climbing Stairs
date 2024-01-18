@@ -1,0 +1,46 @@
+
+class Solution {
+public:
+
+    int count=0;
+    void solve_recursion(int n,int sum){            // Getting TLE
+        if(sum>n) return;
+        if(sum==n) count++;
+        solve_recursion(n,sum+1);
+        solve_recursion(n,sum+2);
+    }
+    
+    int a=1,b=2,ans=0;
+    int solve_loop(int n){                // using 3 variable (beats 50%)
+        if(n==1) return 1;
+        if(n==2) return 2;
+        for(int i=0;i<n-2;i++){
+            ans=a+b;
+            a=b;
+            b=ans;
+        }
+        return ans;
+    }
+
+    int c=1;
+    int d=2;
+    int solve_loop2(int n){                             // using 2 variable (beats 100%)
+        if(n==1) return 1;
+        if(n==2) return 2;
+        for(int i=0;i<n-2;i++){
+            d=c+d;
+            c=d-c;
+        }
+        return d;
+    }
+
+    int climbStairs(int n) {
+        
+        // return solve_loop(n);
+
+        return solve_loop2(n);
+
+        // solve_recursion(n,0);
+        // return count;
+    }
+};
