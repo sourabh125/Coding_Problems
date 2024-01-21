@@ -1,0 +1,41 @@
+
+
+
+class Solution {
+public:
+    int maxAns=INT_MIN;
+    void solve_recursion(vector<int>& nums,int i,int n,int sum){
+        if(i>=n){
+            maxAns=max(maxAns,sum);
+            return;
+        }
+        // sum+=arr[i];
+        solve_recursion(nums,i+2,n,sum+nums[i]);
+        sum-=nums[i];
+        solve_recursion(nums,i+1,n,sum+nums[i]);
+    }
+    int solve_loop(vector<int>& nums){
+        int n=nums.size();
+        int maxVal=INT_MIN;
+        if(n==1) return nums[0];
+        for(int i=n-3;i>=0;i--){
+            for(int j=i+2;j<n;j++){
+                maxVal=max(maxVal,nums[j]);
+            }
+            nums[i]+=maxVal;
+        }
+        return max(nums[0],nums[1]);
+    }
+    int rob(vector<int>& nums) {
+       //----------------------------------(Solution-1)-------------------
+        // int n=nums.size();
+        // for(int i=0;i<n;i++){
+        //     solve_recursion(nums,i,n,0);
+        // }
+        // return maxAns;
+
+
+        //-------------------------------(Solution-2);
+        return solve_loop(nums);
+    }
+};
