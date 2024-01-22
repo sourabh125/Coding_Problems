@@ -1,0 +1,50 @@
+
+
+
+
+class Solution {
+public:
+    vector<int> ans;
+    vector<int> solve_using_vector(vector<int>& nums){
+        int n=nums.size();
+        vector<int> v(n,0);
+        int a,b;
+        for(int i=0;i<n;i++){
+            v[nums[i]-1]++;
+        }
+        for(int i=0;i<n;i++){
+            cout<<v[i]<<" ";
+            if(v[i]>1){
+                a=i+1;
+            }
+            else if(v[i]==0) b=i+1;
+        }
+        return {a,b};
+    }
+    vector<int> solve_optimized(vector<int>& nums){
+        int start=1;
+        sort(nums.begin(),nums.end());
+        int n=nums.size();
+
+        for(int i=0;i<n;i++){
+            if(start==nums[i]){
+                start++;
+            }
+            else continue;
+        }
+        for(int i=1;i<n;i++){
+            if(nums[i]==nums[i-1]){
+                ans.push_back(nums[i]);
+                break;
+            } 
+        }
+        ans.push_back(start);
+        return ans;
+    }
+    vector<int> findErrorNums(vector<int>& nums) {
+       
+        //return solve_using_vector(nums);
+
+        return solve_optimized(nums);
+    }
+};
