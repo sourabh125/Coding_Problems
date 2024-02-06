@@ -1,0 +1,49 @@
+
+
+
+class Solution {
+public:
+
+    vector<vector<string>> solve_BF(vector<string>& strs){
+        vector<vector<string>> ans;
+        int n=strs.size();
+        for(int i=0;i<n;i++){
+            if(strs[i]=="-1") continue;
+            vector<string> tempAns;
+            string temp1=strs[i];
+            sort(temp1.begin(),temp1.end());
+            for(int j=0;j<n;j++){
+                string temp2=strs[j];
+                sort(temp2.begin(),temp2.end());
+                if(temp1==temp2){
+                    tempAns.push_back(strs[j]);
+                    strs[j]="-1";
+                }
+            }
+            ans.push_back(tempAns);
+        }
+        if(ans.empty()){
+            return {strs};
+        }
+       return ans;
+    }
+    vector<vector<string>> solve_using_map(vector<string>& strs){
+        map<string,vector<string>> mp;
+        vector<vector<string>> ans;
+        int n=strs.size();
+        for(int i=0;i<n;i++){
+            string temp=strs[i];
+            sort(temp.begin(),temp.end());
+            mp[temp].push_back(strs[i]);
+        }
+        for(auto s:mp){
+            ans.push_back(s.second);
+        }
+        return ans;
+    }
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        
+        // return solve_BF(strs);
+        return solve_using_map(strs);
+    }
+};
