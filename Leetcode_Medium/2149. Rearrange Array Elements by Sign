@@ -1,0 +1,83 @@
+class Solution {
+public:
+      
+    vector<int> solve_using_seperation_1(vector<int>& nums){
+
+        vector<int> ans;                   // used this for storing the ans
+        vector<int> positive;
+        vector<int> negetive;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(nums[i]>0) positive.push_back(nums[i]);
+            else negetive.push_back(nums[i]);
+        }
+        for(int i=0;i<n/2;i++){
+            ans.push_back(positive[i]);
+            ans.push_back(negetive[i]);
+        }
+        return ans;
+    }
+    vector<int> solve_using_seperation_2(vector<int>& nums){
+
+        // vector<int> ans;                   // not used this for storing the ans
+        vector<int> positive;
+        vector<int> negetive;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(nums[i]>0) positive.push_back(nums[i]);
+            else negetive.push_back(nums[i]);
+        }
+        int j=0;
+        for(int i=0;i<n;i++){
+            nums[i]=positive[j];i++;
+            nums[i]=negetive[j];
+            j++;
+        }
+        return nums;
+    }
+    vector<int> solve_optimized(vector<int> & nums){
+        vector<int>ans(nums.size(),0);
+        int pos=0,neg=1;
+        for(int i=0;i<nums.size();i++){
+            if(nums[i]>0){
+                ans[pos] = nums[i];
+                pos+=2;
+            }else{
+                ans[neg] = nums[i];
+                neg+=2;
+            }
+        }
+        return ans;
+    }
+    vector<int> solve_using_withoutExtraSpace(vector<int> &nums){
+        int positive=0;             // positive pointer;
+        int negetive=0;             // negetive pointer;
+        vector<int> ans;
+        int n=nums.size();
+        while(positive<n || negetive<n){
+            while(positive<n){
+                if(nums[positive]>0){
+                    ans.push_back(nums[positive++]);
+                    break;
+                }
+                positive++;
+            }
+            while(negetive<n){
+                if(nums[negetive]<0){
+                    ans.push_back(nums[negetive++]);
+                    break;
+                }
+                negetive++;
+            }
+        }   
+        return ans;
+    }
+    vector<int> rearrangeArray(vector<int>& nums) {
+        
+        //return solve_using_seperation_1(nums);
+        // return solve_using_seperation_2(nums);
+        // return solve_using_withoutExtraSpace(nums);
+        return solve_optimized(nums);
+        
+    }
+};
