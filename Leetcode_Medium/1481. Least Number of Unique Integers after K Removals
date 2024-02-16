@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int solve_using_map(vector<int>& arr, int k){
+        map<int,int> mp;
+        vector<int> ans;
+
+        for(int &i:arr){
+            mp[i]++;
+        }
+        for(auto& i:mp){
+            ans.push_back(i.second);
+        }
+
+        sort(ans.begin(),ans.end());
+        int count=0;
+        for(int& i:ans){
+            if(k>=i){
+                k-=i;
+               count++;
+            }else{
+                break;
+            }
+        }
+        return ans.size()-count;
+    }
+    int solve_by_sorting(vector<int>& arr,int k){
+        sort(arr.begin(),arr.end());
+        int i=0,j=0,n=arr.size();
+        vector<int> ans;
+
+        while(i<n && j<n){
+            if(arr[i]==arr[j]){
+                j++;
+            }
+            else{
+                ans.push_back(j-i);
+                i=j;
+            }
+        }
+        ans.push_back(j-i);
+        sort(ans.begin(),ans.end());
+        int count=0;
+        for(int i:ans){
+            if(k>=i){
+                k-=i;
+                count++;
+            }
+            else break;
+        }
+        return ans.size()-count;
+    }
+    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+        
+        // return solve_using_map(arr,k);
+
+        return solve_by_sorting(arr,k);
+    }
+};
