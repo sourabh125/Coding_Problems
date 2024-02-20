@@ -1,6 +1,7 @@
 
 
 
+//------------------------------------------------------------(Solution: 1)-------------------------------------------------------------
 
 class Solution {
 public:
@@ -20,5 +21,40 @@ public:
             }
         }
         return no;
+    }
+};
+
+
+//------------------------------------------------------------(Solution: 2,3)-------------------------------------------------------------
+
+class Solution {
+public:
+    int solve_bf(vector<int>& nums){
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n;i++){
+            if(nums[i]==i) continue;
+            else return i;
+        }
+        return n;
+    }
+    int solve_time_space(vector<int>& nums){
+
+        int n=nums.size();
+        vector<int> temp(n+1,-1);
+        for(int i=0;i<n;i++){
+            temp[nums[i]]=1;
+        }
+        for(int i=0;i<n;i++){
+            if(temp[i]==-1) return i;
+        }
+        return n;
+    }
+    int missingNumber(vector<int>& nums) {
+        
+        // return solve_bf(nums);
+
+        return solve_time_space(nums);
+       
     }
 };
