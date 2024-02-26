@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    vector<int> temp,maxAns;
+    
+    void solve(vector<int>& nums,int i,int n,vector<int> temp){
+        if(i>=n){
+            if(checkCondition(temp) && maxAns.size()<temp.size()){
+                maxAns=temp;
+            }
+            return;
+        }
+
+        temp.push_back(nums[i]);
+        // ans.push_back(temp);
+        solve(nums,i+1,n,temp);
+        temp.pop_back();
+        solve(nums,i+1,n,temp);
+    }
+    bool checkCondition(vector<int>& temp){
+        int n=temp.size();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(temp[i]%temp[j]==0 || temp[j]%temp[i]==0){
+                    continue;
+                }
+                else return false;
+            }
+        }
+        return true;
+    }
+    vector<int> largestDivisibleSubset(vector<int>& nums) {
+       
+        vector<int> temp;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            solve(nums,i,n,temp);
+        }
+        return maxAns;
+    }
+};
