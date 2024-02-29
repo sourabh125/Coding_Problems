@@ -1,0 +1,70 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+//-----------------------------------------------(Solution 1 (travers tree and use map then check incre-decre))----------------------------------------
+
+class Solution {
+public:
+    map<int,vector<int>> mp;
+    void solve(TreeNode* root,int level){
+        if(root==NULL) return;
+        mp[level].push_back(root->val);
+        solve(root->left,level+1);
+        solve(root->right,level+1);
+    }
+    bool checkIncreasingOrder(vector<int>& v){
+        int n=v.size();
+        // if(n==1) return true;
+        for(int i=1;i<n;i++){
+            if(v[i-1]<v[i] && v[i-1]%2==1) continue;
+            else return false;
+        }
+        if(v[n-1]%2==1) return true;
+        return false;
+    }
+    bool checkDecreasingOrder(vector<int>& v){
+        int n=v.size();
+        // if(n==1) return true;
+        for(int i=1;i<n;i++){
+            if(v[i-1]>v[i] && v[i-1]%2==0) continue;
+            else return false;
+        }
+        if(v[n-1]%2==0) return true;
+        return false;
+    }
+    bool isEvenOddTree(TreeNode* root) {
+        
+        int level=0;
+        solve(root,level);
+        bool flag=false;
+        for(auto i:mp){
+            cout<<i.first<<" ";
+            for(int j=0;j<i.second.size();j++){
+                cout<<i.second[j]<<" ";
+            }
+            cout<<endl;
+
+
+            if((i.first%2==0 && checkIncreasingOrder(i.second)) || (i.first%2==1 && checkDecreasingOrder(i.second))){
+                flag=true;
+            }
+            else{
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+};
+
+//-----------------------------------------------(Solution 1 (travers tree and use map then check incre-decre))----------------------------------------
+
