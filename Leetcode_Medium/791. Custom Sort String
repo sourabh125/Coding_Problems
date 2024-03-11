@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string solve1_optimized(string order,string s){
+        int orderSize=order.size();
+        int sn=s.size();
+        string ans="";
+        for(int i=0;i<orderSize;i++){
+            for(int j=0;j<s.size();j++){
+                if(order[i]==s[j]){
+                    ans+=s[j];
+                    // s.erase(s.begin()+j);
+                    s[j]=' ';
+                }
+            }
+        }
+        int i=0;
+        while(i<sn){
+            if(s[i]!=' ') ans+=s[i];
+            i++;
+        }
+        return ans;
+    }
+    string solve2(string order,string s){
+        int orderSize=order.size();
+        int sn=s.size();
+        string ans="";
+        for(int i=0;i<orderSize;i++){
+            for(int j=0;j<s.size();j++){
+                if(order[i]==s[j]){
+                    ans+=s[j];
+                    s.erase(s.begin()+j);
+                    j--;
+                }
+            }
+        }
+        return ans+s;
+    }
+    string customSortString(string order, string s) {
+        
+
+        // return solve1_optimized(order,s);     // 100% Beats - optimized
+
+        // return solve2(order,s);                 // 50% beats
+        
+    }
+};
