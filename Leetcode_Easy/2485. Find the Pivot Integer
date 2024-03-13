@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int solve1_bf(int n){
+        for(int i=1;i<=n;i++){
+            int sum=0;
+            for(int j=1;j<=i;j++){
+                sum+=j;
+            }
+            for(int j=i;j<=n;j++){
+                sum-=j;
+            }
+            if(sum==0) return i;
+        }
+        return -1;
+    }
+
+    int solve2_optimised(int n){
+        int sum=0,temps=0;
+        for(int i=1;i<=n;i++) sum+=i;
+        for(int i=1;i<=n;i++){
+            temps+=i;
+            if(temps == sum-temps+i) return i;
+        }
+        return -1;
+    }
+
+    int pivotInteger(int n) {
+        
+    
+        // return solve1_bf(n);
+
+        // return solve2_optimised(n);
+
+
+    }
+};
