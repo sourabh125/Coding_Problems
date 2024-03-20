@@ -1,0 +1,61 @@
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* solve1_bf(ListNode* list1,int a,int b,ListNode* list2){
+        int start=1;
+        ListNode* tempList1=list1;
+        ListNode* tempList2=list1;
+        while(tempList1!=NULL){
+            if(start==a){
+                tempList2=tempList1->next;
+                tempList1->next=list2;
+                while(start<=b){
+                    tempList2=tempList2->next;
+                    start++;
+                }
+                while(tempList1->next!=NULL){
+                    tempList1=tempList1->next;
+                }
+                tempList1->next=tempList2;
+               return list1;
+            }
+            else tempList1=tempList1->next;
+            start++;
+        }
+        return list1;
+    }
+    ListNode* solve2_optimized(ListNode* list1,int a,int b,ListNode* list2){
+        ListNode* tempNode1=list1;
+        for(int i=0;i<a-1;i++){
+            tempNode1=tempNode1->next;
+        }
+        ListNode* tempNode2=tempNode1->next;
+        for(int i=0;i<b-a+1;i++){
+            tempNode2=tempNode2->next;
+        }
+        tempNode1->next=list2;
+        while(tempNode1->next){
+            tempNode1=tempNode1->next;
+        }
+        tempNode1->next=tempNode2;
+        return list1;
+    }
+    ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
+        
+        // return solve1_bf(list1,a,b,list2);
+
+        return solve2_optimized(list1,a,b,list2);
+    }
+};
